@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" name="username" value="Click Me!" id="username" >
+
+<script type="text/javascript">
+    var btn = document.getElementById("username");
+    function getElement(id){
+        //document.all
+        if(document.getElementById){
+            return document.getElementById(id);
+        }else if(document.all){
+            return document.all[id];
+        }else{
+            throw new Error("No way to retrieve element !");
+        }
+    }
+
+    //找出同辈的标签
+
+    function isSortable(object){
+        return typeof object.sort == 'function';
+    }
+
+    function hasCreateElement(){
+        return typeof document.createElement ;
+    }
+    var arr = new Array();
+   var res= isSortable(arr);
+    window.alert(res);
+    window.alert(hasCreateElement());
+
+</script>
+</body>
+</html>

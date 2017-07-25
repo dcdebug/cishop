@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<input type="button" name="username" id="username"  value=" Click Me !"/>
+<br/>
+
+<a href="http://www.baidu.com"  id="mylink">Youtube</a>
+<script type="text/javascript">
+    var btn = document.getElementById("username");
+
+    var handler = function(event){
+        switch(event.type){
+            case "click":
+                event.stopPropagation();
+
+                alert("click");
+                break;
+            case "mouseover":
+                event.target.style.backgroundColor="red";
+                break;
+            case "mouseout":
+                event.target.style.backgroundColor="green";
+                break;
+        }
+    };
+    btn.onclick=handler;
+    btn.onmouseover=handler;
+    btn.onmouseout=handler;
+var link = document.getElementById("mylink");
+    link.onclick =function(event){
+        console.log(event);
+       //event.preventDefault();
+       // link.href="http://www.youtube.com";
+        event.target.style.backgroundColor="Yellow";
+    }
+    document.body.onclick=function(event){
+        window.alert(event.type);
+    }
+
+    var EventUtil = {
+        addHandler:function(element,type,handler){
+            if(element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }else if(element.attachEvent){
+                element.attachEvent("on"+type,handler);
+            }else{
+                element["on"+type]=handler; //Kuozhan
+            }
+        },
+        getEvent:function(event){
+            return event?event:window.event;
+        },
+        getTarget:function(event){
+            return event.target||event.srcElement;
+        },
+        preventDefault:function(event){
+            if(event.preventDefault){
+                event.preventDefault();
+            }else{
+                event.returnValue = false;
+            }
+        },
+        stopPropagation:function(event){
+            if(event.stopPropagation){
+                event.stopPropagation();
+            }else{
+                event.cancelBubble = true;
+            }
+        },
+        removeHandler:function(element,type,handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type,handler,false);
+
+            }  else if(element.detachEvent){
+                element.detachEvent("on"+type,handler);
+            }else{
+                element["on"+type]=null;
+            }
+        }
+
+    };
+</script>
+</body>
+</html>

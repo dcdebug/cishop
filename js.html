@@ -1,0 +1,72 @@
+<html>
+
+
+<head>
+    <title>
+
+    </title>
+</head>
+<body>
+ <input type="button" value="Click Me" onclick="alert(this.value);" />
+ <br/>
+ <input type="button" value="Click Me" onclick="alert(value);" />
+<br/>
+
+<form method="post">
+    <input type="text" name="username" value="">
+
+    <input type="button" value=" Echo the Username" id="username" />
+
+    <script type="text/javascript">
+        var btn = document.getElementById("username");
+      //  btn.addEventListener('click',function(){alert(username.value)},false);
+      //  btn.addEventListener('click',function(){alert(username.id)},true);
+      // btn.attachEvent('onclick',function(){alert(username.value)});
+    var EventUtil = {
+        addHandler:function(element,type,handler){
+            if(element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }else if(element.attachEvent){
+                element.attachEvent("on"+type,handler);
+            }else{
+                element["on"+type]=handler; //Kuozhan
+            }
+        },
+        removeHandler:function(element,type,handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type,handler,false);
+
+            }  else if(element.detachEvent){
+                element.detachEvent("on"+type,handler);
+            }else{
+                element["on"+type]=null;
+            }
+        }
+
+    };
+        var handler = function(event){
+            console.log(event);
+            console.log(this);
+            alert("Hello world"+event.type);
+        };
+
+      //  EventUtil.addHandler(btn,'click',handler);
+
+        btn.onclick=function(event){
+            alert(event.currentTarget == this);
+            alert(event.eventPhase);
+            alert(event.target == this);
+
+        };
+        document.body.onclick=function(event){
+            alert(event.currentTarget == this);
+            alert(event.eventPhase);
+            alert(event.target == btn);
+            alert(event.target == document.body);
+            console.log(event.target);
+
+        }
+    </script>
+</form>
+</body>
+</html>

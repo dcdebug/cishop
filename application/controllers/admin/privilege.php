@@ -20,7 +20,6 @@ class Privilege extends CI_Controller{
 
 		// $data = create_captcha($vals);
 		// var_dump($data);
-
 		$this->load->view('login.html');
 	}
 
@@ -28,16 +27,9 @@ class Privilege extends CI_Controller{
 	public function code(){
 		#调用函数生成验证码
 		$vals = array(
-			'word_length' => 6,
+			'word_length' => 4,
 		);
-		$code = create_captcha($vals);
-
-		#将验证码字符串保存到session中
-		$this->session->set_userdata('code',$code);
-		var_dump($code);
-
-		echo $code['image'];
-
+		create_captcha($vals);
 	}
 
 
@@ -46,12 +38,13 @@ class Privilege extends CI_Controller{
 		#设置验证规则
 		$this->form_validation->set_rules('username','用户名','required');
 		$this->form_validation->set_rules('password','密码','required');
+		$this->form_validation->set_rules('captcha','验证码','required');
 
-		#获取表单数据
+		$pos = $this->input->post();
 		$captcha = strtolower($this->input->post('captcha'));
+		session_start();
 
-		#获取session中保存的验证码
-		$code = strtolower($this->session->userdata('code'));
+		$code = strtolower($_SESSION['captcha_session']);
 
 		if ($captcha === $code){
 			#验证码正确，则需要验证用户名和密码
@@ -80,7 +73,8 @@ class Privilege extends CI_Controller{
 			
 		} else {
 			#验证码不正确，给出提示页面，然后返回
-			$data['url'] = site_url('admin/privilege/login');
+			die;
+			$data['url'] = base_url('admin/privilege/login');
 			$data['message'] = '验证码错误，请重新填写';
 			$data['wait'] = 3;
 			$this->load->view('message.html',$data);

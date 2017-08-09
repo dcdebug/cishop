@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+        var book ={};
+
+        Object.defineProperties(book,{
+            _year:{
+                value:2017
+            },
+            edition:{
+                value:1
+            },
+            year:{
+                get :function(){
+                    return this._year;
+                },
+                set :function(newValue){
+                    if(newValue>2017){
+                        this._year=newValue;
+                        this.edition += newValue -2004;
+                    }
+                }
+            }
+
+        });
+
+        var descriptor = Object.getOwnPropertyDescriptor(book,"_year");
+        var descriptor1 = Object.getOwnPropertyDescriptor(book,"year");
+
+        console.log(descriptor);
+        console.log(descriptor1);
+
+
+
+
+        if(!window.DM){
+            DM ={
+                provide:function(c,b,a){
+                    return DM.copy(typeof c == "string"?DM.create(c):c,b,a); //复制
+                },
+                copy:function(e,d,b,a){
+                    for(var c in d ){
+                        if(b || typeof e[c] === "undefined"){
+                            e[c]= a?a(d[c]):d[c];
+                        }
+                    }
+                    return e;
+                },
+                create: function(d,g){
+                    var f =window.DM,a =d? d.spit("."):[],j= a.length;
+                    for(var e =0;e<j;e++){
+                        var b=a[e];
+                        var h =f[b];
+                        if(!h){
+                            h = (g && e + 1 == j) ? g : {};
+                            f[b] = h
+                        }
+                        f=h
+                    }
+                    return f ;
+                }
+            };
+        }
+
+
+
+        var person  ={
+            name :"Json AlexAdmin",
+            age :29,
+            job:"IT Study",
+            sayName:function(){
+                alert(this.name);
+            }
+        };
+        Object.defineProperty(person,"Sex",{writable:false,value:'Object Press'});
+    //    person.sayName();
+        person.name="Alexadmin";
+      //  person.sayName();
+      /*  delete person.name;
+         person.sayName();*/
+        person.Sex="Man";
+
+
+        /**
+         * 工厂模式创建Javascript对象
+         * @param name
+         * @param age
+         * @param job
+         */
+
+        function createPerson(name,age,job){
+            var o = new Object();
+            o.name=name;
+            o.age=30;
+            o.job='It';
+            o.sayName=function(){
+                window.alert(this.name);
+
+            };
+
+            return o;
+        }
+        var persons = createPerson("alex",38,"It");
+
+        function Person(name,age,job){
+            this.name=name;
+            this.age=age;
+            this.job=job;
+            this.sayName=function(){
+                window.alert(this.name);
+            }
+        }
+        Person("chengyue wang ",88,"Alex It");
+        window.sayName();
+
+        var o = new Object();
+
+        Person.call(o,'Kerry king ',100," Darry Kinger !");
+        o.sayName();
+
+
+        var person1 = new Person("chengyue" ,29,'It');
+        var person2 = new Person("chengyue" ,29,'It');
+
+        alert(person1.sayName == person2.sayName);
+
+        var fxm={};
+        fxm.navItem = function (e, d, c, a, f, b) {
+            this.selfClass = "fxm.navItem";
+            this.elemId = e;
+            this.moveLeft = d;
+            this.moveRight = c;
+            this.moveUp = a;
+            this.moveDown = f;
+            this.isControllElem = (b) ? true : false;
+            this.directionValue = function (g) {
+                switch (g) {
+                    case"left":
+                        return this.moveLeft;
+                    case"right":
+                        return this.moveRight;
+                    case"up":
+                        return this.moveUp;
+                    case"down":
+                        return this.moveDown;
+                    default:
+                        return null
+                }
+            };
+            this.focused = false;
+            this.preFocus = null;
+            this.postFocus = null;
+            this.preBlur = null;
+            this.postBlur = null;
+            this.disabled = false;
+            this.self = function () {
+                return "fxm.navItem." + this.elemId
+            };
+            this._dump = function () {
+                var g = ["include", "selfClass", "elemId", "isControllElem", "focused", "disabled"];
+                if (typeof(this.moveLeft) != "object" && typeof(this.moveLeft) != "function") {
+                    g.push("moveLeft")
+                }
+                if (typeof(this.moveRight) != "object" && typeof(this.moveRight) != "function") {
+                    g.push("moveRight")
+                }
+                if (typeof(this.moveUp) != "object" && typeof(this.moveUp) != "function") {
+                    g.push("moveUp")
+                }
+                if (typeof(this.moveDown) != "object" && typeof(this.moveDown) != "function") {
+                    g.push("moveDown")
+                }
+                return fxm.debug._dump(this, true, g)
+            };
+            this.dump = function (g, h) {
+                return fxm.debug.dump(this, g, h)
+            }
+        };
+
+        fxms=new fxm.navItem();
+        fxms._dump();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

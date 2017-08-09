@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+
+        //构建函数的问题
+
+        //构建函数
+
+        function Person(name,age,job){
+            this.name=name;
+            this.age=age;
+            this.job='IT test';
+            this.sayName=sayName;
+        }
+
+        function sayName(){
+            alert(this.name);
+
+        }
+
+        var person1 = new Person("N 1",38,"soft ware !");
+        var person2 = new Person("N 2",38,"soft ware !");
+
+        //原型对象
+        function PersonC(){}
+        PersonC.prototype.Name="Alex Admin";
+        PersonC.prototype.age = 38;
+        PersonC.prototype.job="It ";
+        PersonC.prototype.sayName=function(){
+            alert(this.Name);
+        }
+
+        var person3 = new PersonC();
+        person3.sayName();
+
+       /*window.alert(PersonC.prototype.constructor);
+       window.alert(person3.constructor);*/
+
+        window.alert(Object.getPrototypeOf(person3)==PersonC.prototype)
+        console.log(Object.getPrototypeOf(person3));
+        console.log(PersonC.prototype)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

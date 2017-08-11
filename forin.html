@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+
+        //原型对象
+        function PersonC(){}
+        PersonC.prototype.Name="Alex Admin";
+        PersonC.prototype.age = 38;
+        PersonC.prototype.job="It ";
+        PersonC.prototype.sayName=function(){
+            alert(this.Name);
+        };
+        var person1= new PersonC();
+
+        var person2 = new PersonC();
+
+     /*   alert(person1.hasOwnProperty("name"));
+        person1.name= "Test";
+        alert(person1.hasOwnProperty("Name"));*/
+      //  alert("name" in person1);
+
+     //   person1.name="Admin Test";
+      //  alert("name" in person1);
+        //alert(person1.hasOwnProperty("name"));
+
+
+        function hasPrototypeProperty(object,propertyname){
+            return !object.hasOwnProperty(propertyname) &&(propertyname in object);
+            //
+        }
+       // alert(person1.hasOwnProperty("Name")); //实例中没有Name属性
+      //  alert("Name" in person1);  //in  会遍历实例和原型
+        //alert(hasPrototypeProperty(person1,"name"));
+
+        // 所有可枚举的实例属性
+        person1.testProperty="a";
+        var keys = Object.keys(person1);
+
+        window.alert(person1.constructor);
+        //alert(keys);
+        var  apikeys = Object.getOwnPropertyNames(PersonC.prototype);
+        console.log(apikeys);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

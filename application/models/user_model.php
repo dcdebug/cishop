@@ -13,6 +13,10 @@ class User_model extends CI_Model{
 	public function get_user($username,$password){
 		$condition['user_name'] = $username;
 		$condition['password'] = md5($password);
+		echo $condition['password'];
+		echo "<br/>";
+
+		echo $condition['user_name'];
 		$query = $this->db->where($condition)->get(self::TBL_USER);
 		return $query->row_array();
 	}

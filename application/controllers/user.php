@@ -60,7 +60,8 @@ class User extends Home_Controller{
 			redirect('home/index');
 		} else {
 			# error
-			echo 'error';
+			echo "账号或者密码错误";
+			die;
 		}
 		
 	}
